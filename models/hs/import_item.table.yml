@@ -13,7 +13,6 @@ keywords:
   - 統計品目番号
   - 輸入統計品目表
   - 品目分類
-themes: [international]
 primary_key: [code]
 sources:
   - path: https://www.customs.go.jp/tariff/index.htm
@@ -51,3 +50,6 @@ fields:
   - name: source_url
     title: 取り込み元のページ
     description: その行を読んだ類のページの URL
+annotations:
+  queria:
+    themes: [international]
