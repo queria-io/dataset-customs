@@ -1,0 +1,23 @@
+name: Build
+
+# 公開せずに取得と dbt build だけを回す。品目表のページの形が変わったときに Sync より先に気づくため
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync
+      - run: uv run python -c "import logging; logging.basicConfig(level=logging.INFO, format='%(message)s'); from pipelines.customs import download_customs; download_customs()"
+      - run: uv run dbt build --profiles-dir ci
