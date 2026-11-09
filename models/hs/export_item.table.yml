@@ -1,0 +1,53 @@
+schema: hs
+name: export_item
+title: 輸出統計品目表
+description: |-
+  税関の輸出統計品目表の、類（2 桁）・項（4 桁）・号（6 桁）・統計細分（9 桁）を 1 行ずつ持つテーブルです。毎月、税関の最新の版から作り直します。
+
+  - 階層が同じ表に並ぶので、件数を数えたり結合したりするときは level で 1 つに絞ってください。貿易統計の品目と結合するのは level = 'statistical' の 9 桁です
+  - 「その他のもの」のように品名だけでは意味が通らない品目が多いので、上の見出しをつないだ full_name も使ってください
+  - 号に分かれない項は、号のコードの下 2 桁が 00 です（8503.00 など）
+  - 輸出の統計細分は輸入と違います。同じ 9 桁でも輸入の import_item と中身が一致するとは限りません
+keywords:
+  - HS コード
+  - 統計品目番号
+  - 輸出統計品目表
+  - 品目分類
+themes: [international]
+primary_key: [code]
+sources:
+  - path: https://www.customs.go.jp/yusyutu/index.htm
+fields:
+  - name: edition
+    title: 版の日付
+    description: 取り込んだ品目表の版の日付。税関が改正のたびに出す版のうち最新のもの
+  - name: level
+    title: 階層（chapter / heading / subheading / statistical）
+    description: chapter=類（2 桁）、heading=項（4 桁）、subheading=号（6 桁）、statistical=統計細分（9 桁の統計番号）
+  - name: code
+    title: コード
+    description: 区切りの点を除いた数字の文字列（0101・010121・010121100 など）。先頭のゼロを保つ
+  - name: hs_code
+    title: HS コード（6 桁まで）
+    description: その行が属する HS の号（6 桁）。類・項の行は自分自身のコード。上 6 桁は国際共通で、外国の HS コードと結合するときに使う
+  - name: parent_code
+    title: 1 つ上の階層のコード（類は NULL）
+    description: 項なら類、号なら項、統計細分なら号のコード
+  - name: chapter_code
+    title: 類のコード
+    description: その行が属する類（2 桁）
+  - name: name
+    title: 品名
+    description: 品目表の品名の原文。番号や「－」の字下げの記号は落としている
+  - name: full_name
+    title: 見出しをつないだ品名
+    description: 項の品名から、コードの無い見出し（「馬」「2 その他のもの」など）を含めて「 ＞ 」でつないだもの
+  - name: unit_1
+    title: 単位 I
+    description: 統計の第 1 単位（NO・SM など）。統計細分の行だけに入る
+  - name: unit_2
+    title: 単位 II
+    description: 統計の第 2 単位（KG・MT など）。統計細分の行だけに入る
+  - name: source_url
+    title: 取り込み元のページ
+    description: その行を読んだ類のページの URL

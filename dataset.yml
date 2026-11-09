@@ -1,0 +1,46 @@
+# この dataset.yml は fdl commit が読む（FDL の dataset.json を YAML で書いたもの）。
+# 表の説明は models/ の *.table.yml に書く。表と列の型・NULL・行数は fdl commit がカタログから埋める。
+name: customs
+title: 税関 輸出入統計品目表
+description: |-
+  税関の輸入統計品目表（実行関税率表）と輸出統計品目表の、類・項・号・統計細分（9 桁の統計番号）と品名・単位です。HS コードの上 6 桁は国際共通で、下 3 桁が日本の統計細分です。毎月、税関の最新の版から取得し直します。
+
+  出典：税関ホームページ「輸入統計品目表（実行関税率表）」「輸出統計品目表」（財務省関税局・税関）を加工して作成
+keywords:
+  - HS コード
+  - 統計品目番号
+  - 統計品目表
+  - 実行関税率表
+  - 品目分類
+  - 輸出
+  - 輸入
+  - 貿易
+  - 税関
+homepage: https://github.com/queria-io/dataset-customs
+language: ja
+
+licenses:
+  - JP-PDL-1.0
+
+sources:
+  - title: 税関 輸入統計品目表（実行関税率表）
+    path: https://www.customs.go.jp/tariff/index.htm
+  - title: 税関 輸出統計品目表
+    path: https://www.customs.go.jp/yusyutu/index.htm
+
+contributors:
+  - title: 財務省関税局・税関
+    path: https://www.customs.go.jp/
+    roles: [rightsHolder]
+
+spatial_coverage: [JP]
+update_frequency: monthly
+
+schemas:
+  - name: hs
+    title: 統計品目表
+
+annotations:
+  queria:
+    themes: [international]
+    cover: 📦
