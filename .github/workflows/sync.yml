@@ -3,8 +3,6 @@ name: Sync
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "*.md"
   schedule:
     # 毎月 5 日 05:00 JST。品目表の改正は年に数回（主に 1 月 1 日と 4 月 1 日）
     - cron: "0 20 4 * *"
