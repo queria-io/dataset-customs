@@ -35,7 +35,7 @@ WHERE level = 'statistical' AND full_name LIKE '%緑茶%';
 ## ビルド
 
 ```bash
-git submodule update --init
+git clone https://github.com/queria-io/dataset-shared.git shared  # 初回のみ。更新は git -C shared pull
 uv sync
 scripts/build.sh   # fdl commit まで
 ```
