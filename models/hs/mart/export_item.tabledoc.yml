@@ -1,22 +1,22 @@
-schema: hs
-name: import_item
-title: 輸入統計品目表
+$schema: https://tabledoc.queria.io/schemas/table/v1.json
+title: 輸出統計品目表
 description: |-
-  税関の輸入統計品目表の、類（2 桁）・項（4 桁）・号（6 桁）・統計細分（9 桁）を 1 行ずつ持つテーブルです。毎月、税関の最新の版から作り直します。
+  税関の輸出統計品目表の、類（2 桁）・項（4 桁）・号（6 桁）・統計細分（9 桁）を 1 行ずつ持つテーブルです。毎月、税関の最新の版から作り直します。
 
   - 階層が同じ表に並ぶので、件数を数えたり結合したりするときは level で 1 つに絞ってください。貿易統計の品目と結合するのは level = 'statistical' の 9 桁です
   - 「その他のもの」のように品名だけでは意味が通らない品目が多いので、上の見出しをつないだ full_name も使ってください
   - 号に分かれない項は、号のコードの下 2 桁が 00 です（8503.00 など）
-  - 関税率は収録していません。輸入の時期で税率が分かれる統計番号（0803.10-100 など）は 1 行にまとめ、品名は時期の行の 1 つ上の見出しにしています
-keywords:
+  - 輸出の統計細分は輸入と違います。同じ 9 桁でも輸入の import_item と中身が一致するとは限りません
+topics:
   - HS コード
   - 統計品目番号
-  - 輸入統計品目表
+  - 輸出統計品目表
   - 品目分類
-primary_key: [code]
+primary_key:
+  - code
 sources:
-  - path: https://www.customs.go.jp/tariff/index.htm
-fields:
+  - yusyutu
+columns:
   - name: edition
     title: 版の日付
     description: 取り込んだ品目表の版の日付。税関が改正のたびに出す版のうち最新のもの
@@ -50,6 +50,3 @@ fields:
   - name: source_url
     title: 取り込み元のページ
     description: その行を読んだ類のページの URL
-annotations:
-  queria:
-    themes: [international]

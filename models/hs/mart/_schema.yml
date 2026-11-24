@@ -2,7 +2,6 @@ version: 2
 
 models:
 - name: import_item
-  description: 税関の輸入統計品目表（実行関税率表）の類・項・号・統計細分。1 行が 1 コード。
   access: public
   columns:
   - name: code
@@ -16,7 +15,6 @@ models:
   - name: name
     data_tests: [not_null]
 - name: export_item
-  description: 税関の輸出統計品目表の類・項・号・統計細分。1 行が 1 コード。
   access: public
   columns:
   - name: code

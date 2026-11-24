@@ -1,5 +1,3 @@
-{# pipelines/customs.py が最新の版から data/customs/export_item.csv に書き出す。 #}
-
 select
     cast(edition as date) as edition,
     level,
@@ -12,4 +10,4 @@ select
     nullif(unit_1, '') as unit_1,
     nullif(unit_2, '') as unit_2,
     source_url
-from read_csv('data/customs/export_item.csv', header = true, all_varchar = true)
+from {{ ref('raw_import_item') }}
