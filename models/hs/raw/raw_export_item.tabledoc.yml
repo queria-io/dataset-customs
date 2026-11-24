@@ -1,0 +1,3 @@
+$schema: https://tabledoc.queria.io/schemas/table/v1.json
+description: pipelines/customs.py が書いた輸出統計品目表の CSV を、すべて文字列のまま読んだもの
+hidden: true
